@@ -4,47 +4,31 @@
  */
 package projectopoo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author deavi
  */
-public class Usuario {
-        private String nombre;
-        private String apellido;
+public class Usuario implements Serializable {
+        private String nombreYapellido;
         private int cedula;
-        private String usuario;
         private String contraseña;
 
-    public String getNombre() {
-        return nombre;
+    public Usuario(int cedula) {
+        this.cedula = cedula;
+    }    
+        
+    public String getNombreYapellido() {
+        return nombreYapellido;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido() {
-        return apellido;
-    }
-
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
+    public void setNombreYapellido(String nombreYapellido) {
+        this.nombreYapellido = nombreYapellido;
+    }   
 
     public int getCedula() {
         return cedula;
-    }
-
-    public void setCedula(int cedula) {
-        this.cedula = cedula;
-    }
-
-    public String getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(String usuario) {
-        this.usuario = usuario;
     }
 
     public String getContraseña() {

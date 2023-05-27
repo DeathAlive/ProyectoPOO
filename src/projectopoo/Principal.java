@@ -14,8 +14,8 @@ public class Principal {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println("polla");
-        System.out.println("ya pude ");
+        RegistrarUsuario rU = new RegistrarUsuario();
+        rU.registrarUsuario();
     }
     
 }
