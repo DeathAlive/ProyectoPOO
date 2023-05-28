@@ -35,12 +35,12 @@ public class Principal {
                     RegistrarUsuario reg = new RegistrarUsuario();
                     break;
                 case "2":
-                    boolean sesionIniciada = iniciarSesion();
-                    if (sesionIniciada) {
-                        menuSesion();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Inicio de sesión fallido. Volviendo al menú principal.");
-                    }
+//                    boolean sesionIniciada = iniciarSesion();
+//                    if (sesionIniciada) {
+//                        menuSesion();
+//                    } else {
+//                        JOptionPane.showMessageDialog(null, "Inicio de sesión fallido. Volviendo al menú principal.");
+//                    }
                     break;
                 case "3":
                     salir = true;
