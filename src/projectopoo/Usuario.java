@@ -18,6 +18,11 @@ public class Usuario implements Serializable {
     public Usuario(int cedula) {
         this.cedula = cedula;
     }    
+
+    public Usuario(String nombreYapellido, String contraseña) {
+        this.nombreYapellido = nombreYapellido;
+        this.contraseña = contraseña;
+    }
         
     public String getNombreYapellido() {
         return nombreYapellido;

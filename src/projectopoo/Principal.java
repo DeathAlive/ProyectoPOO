@@ -33,7 +33,7 @@ public class Principal {
 
             switch (opcion) {
                 case "1":
-                    rU.registrarUsuario();
+                    registrar();
                     break;
                 case "2":
                     boolean sesionIniciada = iniciarSesion();
@@ -57,6 +57,19 @@ public class Principal {
 
     public static void registrar() {
         String nombreUsuario = JOptionPane.showInputDialog("Ingrese un nombre de usuario:");
+
+    // Validar si el nombre de usuario ya existe
+    boolean usuarioExistente = false;
+    for (Usuario usuario : usuariosRegistrados) {
+        if (usuario.getNombreYapellido().equals(nombreUsuario)) {
+            usuarioExistente = true;
+            break;
+        }
+    }
+
+    if (usuarioExistente) {
+        JOptionPane.showMessageDialog(null, "El nombre de usuario ya está registrado. Por favor, ingrese un nombre de usuario diferente.");
+    } else {
         String contrasena = JOptionPane.showInputDialog("Ingrese una contraseña:");
 
         Usuario usuario = new Usuario(nombreUsuario, contrasena);
@@ -64,13 +77,13 @@ public class Principal {
 
         JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente.");
     }
-
+}
     public static boolean iniciarSesion() {
         String nombreUsuario = JOptionPane.showInputDialog("Ingrese su nombre de usuario:");
         String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
 
         for (Usuario usuario : usuariosRegistrados) {
-            if (usuario.getNombreUsuario().equals(nombreUsuario) && usuario.getContrasena().equals(contrasena)) {
+            if (usuario.getNombreYapellido().equals(nombreUsuario) && usuario.getContraseña().equals(contrasena)) {
                 return true;
             }
         }
@@ -84,8 +97,8 @@ public class Principal {
         while (!salir) {
             String opcion = JOptionPane.showInputDialog(
                     "----- MENÚ DE SESIÓN -----\n"
-                    + "1. Registrate\n"
-                    + "2. Inicia sesion ya :) 2\n"
+                    + "1. DINERO QUE PUEDES GASTAR\n"
+                    + "2.  PORCENTAJE  :) 2\n"
                     + "3. Cerrar sesión\n"
                     + "Ingrese una opción:"
             );
@@ -106,21 +119,5 @@ public class Principal {
         }
     }
 
-    private static class Usuario {
-        private String nombreUsuario;
-        private String contrasena;
-
-        public Usuario(String nombreUsuario, String contrasena) {
-            this.nombreUsuario = nombreUsuario;
-            this.contrasena = contrasena;
-        }
-
-        public String getNombreUsuario() {
-            return nombreUsuario;
-        }
-
-        public String getContrasena() {
-            return contrasena;
-        }
-    }
+  
 }
