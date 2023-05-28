@@ -18,8 +18,7 @@ public class Principal {
         private static List<Usuario> usuariosRegistrados = new ArrayList<>();
 
     public static void main(String[] args) {
-        RegistrarUsuario rU = new RegistrarUsuario();
-
+        
         boolean salir = false;
 
         while (!salir) {
@@ -33,7 +32,7 @@ public class Principal {
 
             switch (opcion) {
                 case "1":
-                    registrar();
+                    RegistrarUsuario reg = new RegistrarUsuario();
                     break;
                 case "2":
                     boolean sesionIniciada = iniciarSesion();
@@ -55,41 +54,41 @@ public class Principal {
 
     }
 
-    public static void registrar() {
-        String nombreUsuario = JOptionPane.showInputDialog("Ingrese un nombre de usuario:");
-
-    // Validar si el nombre de usuario ya existe
-    boolean usuarioExistente = false;
-    for (Usuario usuario : usuariosRegistrados) {
-        if (usuario.getNombreYapellido().equals(nombreUsuario)) {
-            usuarioExistente = true;
-            break;
-        }
-    }
-
-    if (usuarioExistente) {
-        JOptionPane.showMessageDialog(null, "El nombre de usuario ya está registrado. Por favor, ingrese un nombre de usuario diferente.");
-    } else {
-        String contrasena = JOptionPane.showInputDialog("Ingrese una contraseña:");
-
-        Usuario usuario = new Usuario(nombreUsuario, contrasena);
-        usuariosRegistrados.add(usuario);
-
-        JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente.");
-    }
-}
-    public static boolean iniciarSesion() {
-        String nombreUsuario = JOptionPane.showInputDialog("Ingrese su nombre de usuario:");
-        String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
-
-        for (Usuario usuario : usuariosRegistrados) {
-            if (usuario.getNombreYapellido().equals(nombreUsuario) && usuario.getContraseña().equals(contrasena)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
+//    public static void registrar() {
+//        String nombreUsuario = JOptionPane.showInputDialog("Ingrese un nombre de usuario:");
+//
+//    // Validar si el nombre de usuario ya existe
+//    boolean usuarioExistente = false;
+//    for (Usuario usuario : usuariosRegistrados) {
+//        if (usuario.getNombreYapellido().equals(nombreUsuario)) {
+//            usuarioExistente = true;
+//            break;
+//        }
+//    }
+//
+//    if (usuarioExistente) {
+//        JOptionPane.showMessageDialog(null, "El nombre de usuario ya está registrado. Por favor, ingrese un nombre de usuario diferente.");
+//    } else {
+//        String contrasena = JOptionPane.showInputDialog("Ingrese una contraseña:");
+//
+//        Usuario usuario = new Usuario(nombreUsuario, contrasena);
+//        usuariosRegistrados.add(usuario);
+//
+//        JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente.");
+//    }
+//}
+//    public static boolean iniciarSesion() {
+//        String nombreUsuario = JOptionPane.showInputDialog("Ingrese su nombre de usuario:");
+//        String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
+//
+//        for (Usuario usuario : usuariosRegistrados) {
+//            if (usuario.getNombreYapellido().equals(nombreUsuario) && usuario.getContraseña().equals(contrasena)) {
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
 
     public static void menuSesion() {
         boolean salir = false;

@@ -6,14 +6,12 @@ import javax.swing.JOptionPane;
 
 public class RegistrarUsuario {
     
-    public boolean registrarUsuario(){
+    public RegistrarUsuario(){
         Usuario nuevoUsuario = new Usuario(Integer.parseInt(JOptionPane.showInputDialog("Ingrese su numero de cedula: ")));
         nuevoUsuario.setNombreYapellido(JOptionPane.showInputDialog("Ingrese su nombre y apellido: "));
         nuevoUsuario.setContraseña(JOptionPane.showInputDialog("Ingrese la contraseña a registrar: "));
-        if (escribirObjeto(nuevoUsuario, nuevoUsuario.getCedula())) {
-            return true;
-        }
-        return false;
+        escribirObjeto(nuevoUsuario, nuevoUsuario.getCedula());
+        
     }
     
     private boolean escribirObjeto(Object objAEscribir, int cedula){
