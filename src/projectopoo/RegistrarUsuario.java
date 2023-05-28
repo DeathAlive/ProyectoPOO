@@ -18,7 +18,7 @@ public class RegistrarUsuario {
     
     private boolean escribirObjeto(Object objAEscribir, int cedula){
         try {
-            FileOutputStream archivoOut = new FileOutputStream("./saves/"+cedula+".dat");
+            FileOutputStream archivoOut = new FileOutputStream(cedula+".dat");
             ObjectOutputStream objetoOut = new ObjectOutputStream(archivoOut);
             objetoOut.writeObject(objAEscribir);
             objetoOut.close();
