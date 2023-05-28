@@ -16,6 +16,7 @@ public class Principal {
     public static void main(String[] args) {
         RegistrarUsuario rU = new RegistrarUsuario();
         rU.registrarUsuario();
+        miguegay
     }
     
 }
