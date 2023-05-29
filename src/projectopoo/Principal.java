@@ -22,6 +22,7 @@ public class Principal {
         boolean salir = false;
 
         while (!salir) {
+            Acciones accion = new Acciones();
             String opcion = JOptionPane.showInputDialog(
                     "----- MENÚ PRINCIPAL -----\n"
                     + "1. Registrarse\n"
@@ -32,15 +33,13 @@ public class Principal {
 
             switch (opcion) {
                 case "1":
-                    RegistrarUsuario reg = new RegistrarUsuario();
+                    accion.registrarUsuario();
                     break;
                 case "2":
-//                    boolean sesionIniciada = iniciarSesion();
-//                    if (sesionIniciada) {
-//                        menuSesion();
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "Inicio de sesión fallido. Volviendo al menú principal.");
-//                    }
+                    Usuario user = (Usuario) accion.iniciarUsuario();
+                    if(user!=null){
+                        System.out.println(user.getCedula()+"\n"+user.getNombreYapellido());
+                    }
                     break;
                 case "3":
                     salir = true;
@@ -53,42 +52,6 @@ public class Principal {
         JOptionPane.showMessageDialog(null, "ADIOS");
 
     }
-
-//    public static void registrar() {
-//        String nombreUsuario = JOptionPane.showInputDialog("Ingrese un nombre de usuario:");
-//
-//    // Validar si el nombre de usuario ya existe
-//    boolean usuarioExistente = false;
-//    for (Usuario usuario : usuariosRegistrados) {
-//        if (usuario.getNombreYapellido().equals(nombreUsuario)) {
-//            usuarioExistente = true;
-//            break;
-//        }
-//    }
-//
-//    if (usuarioExistente) {
-//        JOptionPane.showMessageDialog(null, "El nombre de usuario ya está registrado. Por favor, ingrese un nombre de usuario diferente.");
-//    } else {
-//        String contrasena = JOptionPane.showInputDialog("Ingrese una contraseña:");
-//
-//        Usuario usuario = new Usuario(nombreUsuario, contrasena);
-//        usuariosRegistrados.add(usuario);
-//
-//        JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente.");
-//    }
-//}
-//    public static boolean iniciarSesion() {
-//        String nombreUsuario = JOptionPane.showInputDialog("Ingrese su nombre de usuario:");
-//        String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
-//
-//        for (Usuario usuario : usuariosRegistrados) {
-//            if (usuario.getNombreYapellido().equals(nombreUsuario) && usuario.getContraseña().equals(contrasena)) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
 
     public static void menuSesion() {
         boolean salir = false;
