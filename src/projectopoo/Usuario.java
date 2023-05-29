@@ -13,7 +13,8 @@ import java.io.Serializable;
 public class Usuario implements Serializable {
         private String nombreYapellido;
         private int cedula;
-        private String contraseña;
+        private String contrasena;
+        private boolean logged=false;
 
     public Usuario(int cedula) {
         this.cedula = cedula;
@@ -21,7 +22,7 @@ public class Usuario implements Serializable {
 
     public Usuario(String nombreYapellido, String contraseña) {
         this.nombreYapellido = nombreYapellido;
-        this.contraseña = contraseña;
+        this.contrasena = contraseña;
     }
         
     public String getNombreYapellido() {
@@ -37,10 +38,24 @@ public class Usuario implements Serializable {
     }
 
     public String getContraseña() {
-        return contraseña;
+        return contrasena;
     }
 
     public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+        this.contrasena = contraseña;
     }
+
+    public boolean isLogged() {
+        return logged;
+    }
+
+    public void setLogged(boolean logged) {
+        this.logged = logged;
+    }
+
+//    @Override
+//    public String toString() {
+//        return "Usuario{" + "nombreYapellido=" + nombreYapellido + ", cedula=" + cedula + ", contrasena=" + contrasena + ", logged=" + logged + '}';
+//    }
+    
 }
