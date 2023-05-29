@@ -34,7 +34,7 @@ public class Acciones {
 
     private boolean escribirObjeto(Object objAEscribir, int cedula) {
         try {
-            FileOutputStream archivoOut = new FileOutputStream(cedula + ".dat");
+            FileOutputStream archivoOut = new FileOutputStream(".\\cuentas\\"+cedula + ".dat");
             try (ObjectOutputStream objetoOut = new ObjectOutputStream(archivoOut)) {
                 objetoOut.writeObject(objAEscribir);
             }
@@ -46,7 +46,7 @@ public class Acciones {
 
     private Object leerObjeto(int cedula) {
         try {
-            FileInputStream archivoIn = new FileInputStream(cedula + ".dat");
+            FileInputStream archivoIn = new FileInputStream(".\\cuentas\\"+cedula + ".dat");
             ObjectInputStream objetoIn = new ObjectInputStream(archivoIn);
             Object user = objetoIn.readObject();
             return user;
