@@ -37,7 +37,6 @@ public class Principal {
                     if(user!=null){
                         String contra = JOptionPane.showInputDialog("Ingrese la contraseña");
                         if(contra.equals(user.getContrasena())){
-                            System.out.println(user.toString());
                             finanzas fn = new finanzas(
                                     user.getCapital(),
                                     user.getCapitalGastosBasicos()
@@ -69,15 +68,15 @@ public class Principal {
                     "----- MENÚ DE SESIÓN -----\n"
                     + "1. DINERO QUE PUEDES GASTAR\n"
                     + "2.  PORCENTAJE  :) 2\n"
-                    + "3. Cerrar sesión\n"
+                    + "3. Ver info\n"
+                    + "4. Salir.\n"        
                     + "Ingrese una opción:"
             );
+            
 
             switch (opcion) {
-                case "1":
-                    System.out.println(user.getCapitalGastosAh());
-                    fn.infoFinanciera();
-                    double monto = 0.2;
+                case "1":         
+                    double monto = Double.parseDouble(JOptionPane.showInputDialog("<h2>Ingrese la cantidad de transaccion (numeros positivos para ingresar/numeros negativos para retirar):</h2> "));
                     double[] datos=fn.registrarTransaccion(monto);
                     if(monto>0){
                         user.setCapital(datos[0]);
@@ -95,6 +94,9 @@ public class Principal {
                     JOptionPane.showMessageDialog(null, "Opción 2 seleccionada");
                     break;
                 case "3":
+                    fn.infoFinanciera();
+                    break;
+                case "4":
                     salir = true;
                     break;
                 default:

@@ -67,9 +67,11 @@ public double[] transaccion(double monto){
             double[] a = {capital, capitalGastosAh, capitalGastosBasicos, capitalGastosPer};
             return a;
         } else if(monto<0){
-            capitalGastosPer-=monto;
-            capital-=capitalGastosPer;
-            double[] a={capital,capitalGastosPer};
+            
+            capitalGastosPer=capitalGastosPer-Math.abs(monto);
+            capitalGastosPer=Math.abs(capitalGastosPer);
+            capital = capitalGastosAh + capitalGastosBasicos + capitalGastosPer;
+            double[] a = {capital, capitalGastosAh, capitalGastosBasicos, capitalGastosPer};
             return a;
         } else {
             double[] a={capital};
