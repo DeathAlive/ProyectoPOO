@@ -12,8 +12,6 @@ import javax.swing.JOptionPane;
  */
 public class Principal {
 
- 
-
     public static void main(String[] args) {
         boolean salir = false;
 
@@ -34,14 +32,14 @@ public class Principal {
                     break;
                 case "2":
                     Usuario user = (Usuario) accion.iniciarUsuario();
-                    if(user!=null){
+                    if (user != null) {
                         String contra = JOptionPane.showInputDialog("Ingrese la contraseña");
-                        if(contra.equals(user.getContrasena())){
+                        if (contra.equals(user.getContrasena())) {
                             finanzas fn = new finanzas(
                                     user.getCapital(),
-                                    user.getCapitalGastosBasicos()
-                                    , user.getCapitalGastosPer()
-                                    , user.getCapitalGastosAh());
+                                    user.getCapitalGastosBasicos(),
+                                     user.getCapitalGastosPer(),
+                                     user.getCapitalGastosAh());
                             accion.guardarObjeto(menuSesion(user, fn));
                         } else {
                             JOptionPane.showMessageDialog(null, "Contraseña incorrecta!");
@@ -60,52 +58,60 @@ public class Principal {
 
     }
 
-    public static Usuario menuSesion(Usuario user,finanzas fn) {
+    public static Usuario menuSesion(Usuario user, finanzas fn) {
         boolean salir = false;
 
         while (!salir) {
             String opcion = JOptionPane.showInputDialog(
                     "----- MENÚ DE SESIÓN -----\n"
-                    + "1. DINERO QUE PUEDES GASTAR\n"
-                    + "2.  PORCENTAJE  :) 2\n"
-                    + "3. Ver info\n"
-                    + "4. Salir.\n"        
+                    + "1. Ver info\n"
+                    + "2. Registrar ingreso o retiro\n"
+                    + "3. Retiro de emergencia\n"
+                    + "4. Predicciones financieras a futuro."
+                    + "5. Salir.\n"
                     + "Ingrese una opción:"
             );
-            
 
             switch (opcion) {
-                case "1":         
-                    double monto = Double.parseDouble(JOptionPane.showInputDialog("<h2>Ingrese la cantidad de transaccion (numeros positivos para ingresar/numeros negativos para retirar):</h2> "));
-                    double[] datos=fn.registrarTransaccion(monto);
-                    if(monto>0){
-                        user.setCapital(datos[0]);
-                        user.setCapitalGastosAh(datos[1]);
-                        user.setCapitalGastosBasicos(datos[2]);
-                        user.setCapitalGastosPer(datos[3]);
-                    } else if (monto<0){
-                        user.setCapital(datos[0]);
-                        user.setCapitalGastosPer(datos[1]);
-                    } else {
-                        System.out.println("Error");
-                    }
-                    break;
-                case "2":
-                    JOptionPane.showMessageDialog(null, "Opción 2 seleccionada");
-                    break;
-                case "3":
+                case "1":
                     fn.infoFinanciera();
                     break;
+                case "2":
+                    double monto = Double.parseDouble(JOptionPane.showInputDialog("<h2>Ingrese la cantidad de transaccion (numeros positivos para ingresar/numeros negativos para retirar):</h2> "));
+                    double[] datos = fn.registrarTransaccion(monto);
+                    if (datos != null) {
+                        if (monto > 0) {
+                            user.setCapital(datos[0]);
+                            user.setCapitalGastosAh(datos[1]);
+                            user.setCapitalGastosBasicos(datos[2]);
+                            user.setCapitalGastosPer(datos[3]);
+                        } else if (monto < 0) {
+                            user.setCapital(datos[0]);
+                            user.setCapitalGastosAh(datos[1]);
+                            user.setCapitalGastosBasicos(datos[2]);
+                            user.setCapitalGastosPer(datos[3]);
+                        } else {
+                            System.out.println("Error");
+                        }
+                    }
+                    break;
+                case "3":
+                    fn.retiroEmergencias(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto a retirar: ")));
+                    break;
                 case "4":
+                    fn.aFuturo(Integer.parseInt(JOptionPane.showInputDialog(""
+                            + "Ingrese su salario quincenal promedio: "
+                            + "")), Integer.parseInt(JOptionPane.showInputDialog(""
+                                    + "Ingrese cuantas quincenas a futuro desea ver: ")));
+                case "5":
                     salir = true;
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Acaso vez que hay mas numeros pendejo?");
             }
-            
+
         }
         return user;
     }
 
-  
 }
