@@ -4,21 +4,17 @@
  */
 package projectopoo;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Migue
+ * @author Deavi
  */
 public class Principal {
 
-  
-        private static List<Usuario> usuariosRegistrados = new ArrayList<>();
+ 
 
     public static void main(String[] args) {
-        
         boolean salir = false;
 
         while (!salir) {
@@ -34,11 +30,23 @@ public class Principal {
             switch (opcion) {
                 case "1":
                     accion.registrarUsuario();
+                    salir = true;
                     break;
                 case "2":
                     Usuario user = (Usuario) accion.iniciarUsuario();
                     if(user!=null){
-                        System.out.println(user.getCedula()+"\n"+user.getNombreYapellido());
+                        String contra = JOptionPane.showInputDialog("Ingrese la contraseña");
+                        if(contra.equals(user.getContrasena())){
+                            System.out.println(user.toString());
+                            finanzas fn = new finanzas(
+                                    user.getCapital(),
+                                    user.getCapitalGastosBasicos()
+                                    , user.getCapitalGastosPer()
+                                    , user.getCapitalGastosAh());
+                            accion.guardarObjeto(menuSesion(user, fn));
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Contraseña incorrecta!");
+                        }
                     }
                     break;
                 case "3":
@@ -53,7 +61,7 @@ public class Principal {
 
     }
 
-    public static void menuSesion() {
+    public static Usuario menuSesion(Usuario user,finanzas fn) {
         boolean salir = false;
 
         while (!salir) {
@@ -67,7 +75,21 @@ public class Principal {
 
             switch (opcion) {
                 case "1":
-                    JOptionPane.showMessageDialog(null, "Opción 1 seleccionada");
+                    System.out.println(user.getCapitalGastosAh());
+                    fn.infoFinanciera();
+                    double monto = 0.2;
+                    double[] datos=fn.registrarTransaccion(monto);
+                    if(monto>0){
+                        user.setCapital(datos[0]);
+                        user.setCapitalGastosAh(datos[1]);
+                        user.setCapitalGastosBasicos(datos[2]);
+                        user.setCapitalGastosPer(datos[3]);
+                    } else if (monto<0){
+                        user.setCapital(datos[0]);
+                        user.setCapitalGastosPer(datos[1]);
+                    } else {
+                        System.out.println("Error");
+                    }
                     break;
                 case "2":
                     JOptionPane.showMessageDialog(null, "Opción 2 seleccionada");
@@ -78,7 +100,9 @@ public class Principal {
                 default:
                     JOptionPane.showMessageDialog(null, "Acaso vez que hay mas numeros pendejo?");
             }
+            
         }
+        return user;
     }
 
   

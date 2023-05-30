@@ -11,13 +11,24 @@ import java.io.Serializable;
  * @author deavi
  */
 public class Usuario implements Serializable {
+    
+        //Info per
         private String nombreYapellido;
         private int cedula;
         private String contrasena;
-        private boolean logged=false;
-
-    public Usuario(int cedula) {
+        
+        //Dinero
+        private double capital;
+        private double capitalGastosBasicos;
+        private double capitalGastosPer;
+        private double capitalGastosAh;
+    
+    public Usuario(int cedula, int capital) {
         this.cedula = cedula;
+        this.capital = capital;
+        capitalGastosBasicos = capital*0.5;
+        capitalGastosPer=capital*0.3;
+        capitalGastosAh=capital*0.2;
     }    
 
     public Usuario(String nombreYapellido, String contraseña) {
@@ -37,25 +48,52 @@ public class Usuario implements Serializable {
         return cedula;
     }
 
-    public String getContraseña() {
+    public String getContrasena() {
         return contrasena;
     }
 
-    public void setContraseña(String contraseña) {
+    public void setContrasena(String contraseña) {
         this.contrasena = contraseña;
     }
 
-    public boolean isLogged() {
-        return logged;
+    public void setCapital(double capital) {
+        this.capital = capital;
+    }
+    
+    public double getCapital() {
+        return capital;
     }
 
-    public void setLogged(boolean logged) {
-        this.logged = logged;
+    public double getCapitalGastosBasicos() {
+        return capitalGastosBasicos;
     }
 
-//    @Override
-//    public String toString() {
-//        return "Usuario{" + "nombreYapellido=" + nombreYapellido + ", cedula=" + cedula + ", contrasena=" + contrasena + ", logged=" + logged + '}';
-//    }
+    public void setCapitalGastosBasicos(double capitalGastosBasicos) {
+        this.capitalGastosBasicos = capitalGastosBasicos;
+    }
+
+    public double getCapitalGastosPer() {
+        return capitalGastosPer;
+    }
+
+    public void setCapitalGastosPer(double capitalGastosPer) {
+        this.capitalGastosPer = capitalGastosPer;
+    }
+
+    public double getCapitalGastosAh() {
+        return capitalGastosAh;
+    }
+
+    public void setCapitalGastosAh(double capitalGastosAh) {
+        this.capitalGastosAh = capitalGastosAh;
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" + "nombreYapellido=" + nombreYapellido + ", cedula=" + cedula + ", contrasena=" + contrasena + ", capital=" + capital + ", capitalGastosBasicos=" + capitalGastosBasicos + ", capitalGastosPer=" + capitalGastosPer + ", capitalGastosAh=" + capitalGastosAh + '}';
+    }
+    
+    
+    
     
 }

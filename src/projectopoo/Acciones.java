@@ -10,10 +10,12 @@ public class Acciones {
         int cedula = Integer.parseInt(JOptionPane.showInputDialog("Ingrese su numero de cedula: "));
         try {
             if (leerObjeto(cedula) == null) {
-                Usuario nuevoUsuario = new Usuario(cedula);
+                Usuario nuevoUsuario = new Usuario(cedula, Integer.parseInt(JOptionPane.showInputDialog("Ingrese su capital actual (en pesos): ")));
+                System.out.println(nuevoUsuario.toString());
                 nuevoUsuario.setNombreYapellido(JOptionPane.showInputDialog("Ingrese su nombre y apellido: "));
-                nuevoUsuario.setContraseña(JOptionPane.showInputDialog("Ingrese la contraseña a registrar: "));
+                nuevoUsuario.setContrasena(JOptionPane.showInputDialog("Ingrese la contraseña a registrar: "));
                 escribirObjeto(nuevoUsuario, cedula);
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Usuario ya existente! porfavor inicie sesion.");
             }
@@ -42,6 +44,10 @@ public class Acciones {
         } catch (IOException e) {
             return false;
         }
+    }
+    
+    public void guardarObjeto(Usuario user){
+        escribirObjeto(user, user.getCedula());
     }
 
     private Object leerObjeto(int cedula) {
