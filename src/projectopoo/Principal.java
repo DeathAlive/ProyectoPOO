@@ -96,10 +96,22 @@ public class Principal {
                     }
                     break;
                 case 2:
-                    fn.pagoServicios(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto a retirar: ")));
-                    accion.guardarObjeto(user);
-                    break;
-                case 3:
+
+                    monto = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto a retirar: "));
+                    datos = fn.pagoServicios(monto);
+                    if (datos != null) {
+                        if (monto > 0) {
+                            user.setCapital(datos[0]);
+                            user.setCapitalGastosAh(datos[1]);
+                            user.setCapitalGastosBasicos(datos[2]);
+                            user.setCapitalGastosPer(datos[3]);
+                            user.verificarMetaDinero(datos[4]);
+                        } else {
+                            System.out.println("Error");
+                        }
+                        accion.guardarObjeto(user);}
+                        break;  
+                   case 3:
                     fn.retiroEmergencias(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto a retirar: ")));
                     accion.guardarObjeto(user);
                     break;
@@ -119,6 +131,8 @@ public class Principal {
             }
         }
     }
+
+    
 
     public static int mostrarMenuSesion(finanzas fn) {
         Object[] options = {
