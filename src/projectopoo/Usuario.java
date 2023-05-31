@@ -22,7 +22,7 @@ public class Usuario implements Serializable {
         private double capitalGastosBasicos;
         private double capitalGastosPer;
         private double capitalGastosAh;
-    
+     private double metaDinero;
     public Usuario(int cedula, int capital) {
         this.cedula = cedula;
         this.capital = capital;
@@ -94,6 +94,23 @@ public class Usuario implements Serializable {
     }
     
     
-    
-    
+    public void insertarMetaDinero(double metaDinero) {
+        this.metaDinero = metaDinero;
+    }
+
+     public void verificarMetaDinero(double cantidadIngresada) {
+         
+        double dineroFaltante = metaDinero - (capital + cantidadIngresada);
+
+        if (dineroFaltante > 0) {
+            System.out.println("Te faltan $" + dineroFaltante + " para alcanzar tu meta de dinero.");
+        } else if (dineroFaltante == 0) {
+            System.out.println("¡Felicidades! Has alcanzado tu meta de dinero.");
+        } else {
+            System.out.println("Has superado tu meta de dinero.");
+        }
+    }
+
 }
+ 
+    
