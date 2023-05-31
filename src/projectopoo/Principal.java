@@ -1,48 +1,46 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package projectopoo;
 
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Migue
+ * @author deavi
  */
 public class Principal {
 
-  
-        private static List<Usuario> usuariosRegistrados = new ArrayList<>();
+    private static Acciones accion;
 
     public static void main(String[] args) {
-        
+        accion = new Acciones();
         boolean salir = false;
 
         while (!salir) {
-            String opcion = JOptionPane.showInputDialog(
-                    "----- MENÚ PRINCIPAL -----\n"
-                    + "1. Registrarse\n"
-                    + "2. Iniciar sesión\n"
-                    + "3. Salir\n"
-                    + "Ingrese una opción:"
-            );
+            int opcion = mostrarMenuPrincipal() + 1;
 
             switch (opcion) {
-                case "1":
-                    RegistrarUsuario reg = new RegistrarUsuario();
+                case 1:
+                    accion.registrarUsuario();
+//                    salir = true;
                     break;
-                case "2":
-//                    boolean sesionIniciada = iniciarSesion();
-//                    if (sesionIniciada) {
-//                        menuSesion();
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "Inicio de sesión fallido. Volviendo al menú principal.");
-//                    }
+                case 2:
+                    Usuario user = (Usuario) accion.iniciarUsuario();
+                    if (user != null) {
+                        String contra = JOptionPane.showInputDialog("Ingrese la contraseña");
+                        if (contra.equals(user.getContrasena())) {
+                            finanzas fn = new finanzas(
+                                    user.getCapital(),
+                                    user.getCapitalGastosBasicos(),
+                                    user.getCapitalGastosPer(),
+                                    user.getCapitalGastosAh(),
+                                    user.getMetaDinero());
+
+                            menuSesion(user, fn);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Contraseña incorrecta!");
+                        }
+                    }
                     break;
-                case "3":
+                case 3:
                     salir = true;
                     break;
                 default:
@@ -50,73 +48,89 @@ public class Principal {
             }
         }
 
-        JOptionPane.showMessageDialog(null, "ADIOS");
-
+        JOptionPane.showMessageDialog(null, "Proceso terminado.");
     }
 
-//    public static void registrar() {
-//        String nombreUsuario = JOptionPane.showInputDialog("Ingrese un nombre de usuario:");
-//
-//    // Validar si el nombre de usuario ya existe
-//    boolean usuarioExistente = false;
-//    for (Usuario usuario : usuariosRegistrados) {
-//        if (usuario.getNombreYapellido().equals(nombreUsuario)) {
-//            usuarioExistente = true;
-//            break;
-//        }
-//    }
-//
-//    if (usuarioExistente) {
-//        JOptionPane.showMessageDialog(null, "El nombre de usuario ya está registrado. Por favor, ingrese un nombre de usuario diferente.");
-//    } else {
-//        String contrasena = JOptionPane.showInputDialog("Ingrese una contraseña:");
-//
-//        Usuario usuario = new Usuario(nombreUsuario, contrasena);
-//        usuariosRegistrados.add(usuario);
-//
-//        JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente.");
-//    }
-//}
-//    public static boolean iniciarSesion() {
-//        String nombreUsuario = JOptionPane.showInputDialog("Ingrese su nombre de usuario:");
-//        String contrasena = JOptionPane.showInputDialog("Ingrese su contraseña:");
-//
-//        for (Usuario usuario : usuariosRegistrados) {
-//            if (usuario.getNombreYapellido().equals(nombreUsuario) && usuario.getContraseña().equals(contrasena)) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
+    public static int mostrarMenuPrincipal() {
+        Object[] options = {"Registrarse", "Iniciar sesión", "Salir"};
+        return JOptionPane.showOptionDialog(null,
+                "MENÚ PRINCIPAL",
+                "MENÚ PRINCIPAL",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                options,
+                options[2]);
+    }
 
-    public static void menuSesion() {
+    public static void menuSesion(Usuario user, finanzas fn) {
         boolean salir = false;
 
         while (!salir) {
-            String opcion = JOptionPane.showInputDialog(
-                    "----- MENÚ DE SESIÓN -----\n"
-                    + "1. DINERO QUE PUEDES GASTAR\n"
-                    + "2.  PORCENTAJE  :) 2\n"
-                    + "3. Cerrar sesión\n"
-                    + "Ingrese una opción:"
-            );
+            int opcion = mostrarMenuSesion(fn) + 1;
 
             switch (opcion) {
-                case "1":
-                    JOptionPane.showMessageDialog(null, "Opción 1 seleccionada");
+                case 1:
+                    double monto = Double.parseDouble(JOptionPane.showInputDialog(
+                            "<html><h2>Ingrese la cantidad de transacción "
+                            + "(números positivos para ingresar / "
+                            + "números negativos para retirar):"
+                            + "</h2></html> "));
+                    double[] datos = fn.registrarTransaccion(monto);
+                    if (datos != null) {
+                        if (monto > 0) {
+                            user.setCapital(datos[0]);
+                            user.setCapitalGastosAh(datos[1]);
+                            user.setCapitalGastosBasicos(datos[2]);
+                            user.setCapitalGastosPer(datos[3]);
+                            user.verificarMetaDinero(datos[4]);
+                        } else if (monto < 0) {
+                            user.setCapital(datos[0]);
+                            user.setCapitalGastosAh(datos[1]);
+                            user.setCapitalGastosBasicos(datos[2]);
+                            user.setCapitalGastosPer(datos[3]);
+                        } else {
+                            System.out.println("Error");
+                        }
+                        accion.guardarObjeto(user);
+                    }
                     break;
-                case "2":
-                    JOptionPane.showMessageDialog(null, "Opción 2 seleccionada");
+                case 2:
+                    fn.retiroEmergencias(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto a retirar: ")));
+                    accion.guardarObjeto(user);
                     break;
-                case "3":
+                case 3:
+                    fn.aFuturo(Integer.parseInt(JOptionPane.showInputDialog("Ingrese su salario quincenal promedio: ")), Integer.parseInt(JOptionPane.showInputDialog("Ingrese cuántas quincenas a futuro desea ver: ")));
+                    break;
+                case 4:
+                    double metaDinero = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la meta de dinero: "));
+                    user.insertarMetaDinero(metaDinero);
+                    accion.guardarObjeto(user);
+                    break;
+                case 5:
                     salir = true;
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Acaso vez que hay mas numeros pendejo?");
+                    JOptionPane.showMessageDialog(null, "Opción inválida. Por favor, ingrese una opción válida.");
             }
         }
     }
 
-  
+    public static int mostrarMenuSesion(finanzas fn) {
+        Object[] options = {
+            "Registrar ingreso o retiro",
+            "Retiro de emergencia",
+            "Predicciones financieras a futuro",
+            "Establecer meta de dinero",
+            "Salir"
+        };
+        return JOptionPane.showOptionDialog(null,
+                fn.infoFinanciera(),
+                "MENÚ DE SESIÓN\n",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                options,
+                options[4]);
+    }
 }
