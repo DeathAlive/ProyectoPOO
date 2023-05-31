@@ -96,18 +96,34 @@ public class Principal {
                     }
                     break;
                 case 2:
+
+                    monto = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto a retirar: "));
+                    datos = fn.pagoServicios(monto);
+                    if (datos != null) {
+                        if (monto > 0) {
+                            user.setCapital(datos[0]);
+                            user.setCapitalGastosAh(datos[1]);
+                            user.setCapitalGastosBasicos(datos[2]);
+                            user.setCapitalGastosPer(datos[3]);
+                            user.verificarMetaDinero(datos[4]);
+                        } else {
+                            System.out.println("Error");
+                        }
+                        accion.guardarObjeto(user);}
+                        break;  
+                   case 3:
                     fn.retiroEmergencias(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto a retirar: ")));
                     accion.guardarObjeto(user);
                     break;
-                case 3:
+                case 4:
                     fn.aFuturo(Integer.parseInt(JOptionPane.showInputDialog("Ingrese su salario quincenal promedio: ")), Integer.parseInt(JOptionPane.showInputDialog("Ingrese cuántas quincenas a futuro desea ver: ")));
                     break;
-                case 4:
+                case 5:
                     double metaDinero = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la meta de dinero: "));
                     user.insertarMetaDinero(metaDinero);
                     accion.guardarObjeto(user);
                     break;
-                case 5:
+                case 6:
                     salir = true;
                     break;
                 default:
@@ -116,9 +132,12 @@ public class Principal {
         }
     }
 
+    
+
     public static int mostrarMenuSesion(finanzas fn) {
         Object[] options = {
             "Registrar ingreso o retiro",
+            "Retiro gastos basicos",
             "Retiro de emergencia",
             "Predicciones financieras a futuro",
             "Establecer meta de dinero",
@@ -131,6 +150,6 @@ public class Principal {
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 options,
-                options[4]);
+                options[5]);
     }
 }
