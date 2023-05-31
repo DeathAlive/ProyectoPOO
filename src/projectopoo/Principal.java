@@ -96,18 +96,22 @@ public class Principal {
                     }
                     break;
                 case 2:
-                    fn.retiroEmergencias(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto a retirar: ")));
+                    fn.pagoServicios(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto a retirar: ")));
                     accion.guardarObjeto(user);
                     break;
                 case 3:
-                    fn.aFuturo(Integer.parseInt(JOptionPane.showInputDialog("Ingrese su salario quincenal promedio: ")), Integer.parseInt(JOptionPane.showInputDialog("Ingrese cuántas quincenas a futuro desea ver: ")));
+                    fn.retiroEmergencias(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el monto a retirar: ")));
+                    accion.guardarObjeto(user);
                     break;
                 case 4:
+                    fn.aFuturo(Integer.parseInt(JOptionPane.showInputDialog("Ingrese su salario quincenal promedio: ")), Integer.parseInt(JOptionPane.showInputDialog("Ingrese cuántas quincenas a futuro desea ver: ")));
+                    break;
+                case 5:
                     double metaDinero = Double.parseDouble(JOptionPane.showInputDialog("Ingrese la meta de dinero: "));
                     user.insertarMetaDinero(metaDinero);
                     accion.guardarObjeto(user);
                     break;
-                case 5:
+                case 6:
                     salir = true;
                     break;
                 default:
@@ -119,6 +123,7 @@ public class Principal {
     public static int mostrarMenuSesion(finanzas fn) {
         Object[] options = {
             "Registrar ingreso o retiro",
+            "Retiro gastos basicos",
             "Retiro de emergencia",
             "Predicciones financieras a futuro",
             "Establecer meta de dinero",
@@ -131,6 +136,6 @@ public class Principal {
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 options,
-                options[4]);
+                options[5]);
     }
 }

@@ -153,5 +153,17 @@ public class finanzas {
                 + capitalGastosPerL + "</li><li><b>Ahorrado: </b>"
                 + capitalGastosAhL + "</li></ul></html>");
     }
+    
+    public double[] pagoServicios(double monto){
+        double capital = this.capital;
+        if(monto<=capitalGastosBasicos){
+            capitalGastosBasicos = Math.abs(capitalGastosBasicos - Math.abs(monto));
+            capital = capitalGastosAh + capitalGastosBasicos + capitalGastosPer;
+            return new double[]{capital, capitalGastosAh, capitalGastosBasicos, capitalGastosPer, monto};
+        } else {
+            JOptionPane.showMessageDialog(null, "No tienes dinero suficiente como para pagar los gastos basicos.");
+            return new double[]{capital};
+        }
+    }
 
 }
